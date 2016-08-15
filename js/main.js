@@ -32,7 +32,6 @@ $(document).ready(function() {
           nextTrain = moment().add(minutesTillTrain, "minutes");
           nextTrainFormatted = moment(nextTrain).format("hh:mm");
 
-     	// Code for the push
      	keyHolder = dataRef.push({
      		name: name,
      		destination: destination,
@@ -41,11 +40,6 @@ $(document).ready(function() {
                nextTrainFormatted: nextTrainFormatted,
                minutesTillTrain: minutesTillTrain
      	});
-          // The notes below are for finding the path to the key in the data being pushed, leaving as notes to save for later use.
-          /*console.log(keyHolder.path.u[0]);
-          var key = keyHolder.path.u[0];
-          console.log(key);*/
-     	// Don't refresh the page!
 
           $('#name-input').val('');
      	$('#destination-input').val('');
@@ -54,9 +48,7 @@ $(document).ready(function() {
 
      	return false;
      });
-          //id=" + "'" + keyHolder.path.u[0] + "'" + "
      dataRef.on("child_added", function(childSnapshot) {
-	// full list of items to the well
 
 		$('.train-schedule').append("<tr class='table-row' id=" + "'" + childSnapshot.key() + "'" + ">" +
                "<td class='col-xs-3'>" + childSnapshot.val().name +
@@ -65,15 +57,13 @@ $(document).ready(function() {
                "</td>" +
                "<td class='col-xs-2'>" + childSnapshot.val().frequency +
                "</td>" +
-               "<td class='col-xs-2'>" + childSnapshot.val().nextTrainFormatted + // Next Arrival Formula ()
+               "<td class='col-xs-2'>" + childSnapshot.val().nextTrainFormatted +
                "</td>" +
-               "<td class='col-xs-2'>" + childSnapshot.val().minutesTillTrain + // Minutes Away Formula
+               "<td class='col-xs-2'>" + childSnapshot.val().minutesTillTrain +
                "</td>" +
                "<td class='col-xs-1'>" + "<input type='submit' value='remove train' class='remove-train btn btn-primary btn-sm'>" + "</td>" +
           "</tr>");
-// Handle the errors
 }, function(errorObject){
-	//console.log("Errors handled: " + errorObject.code)
 });
 
 $("body").on("click", ".remove-train", function(){
@@ -82,4 +72,4 @@ $("body").on("click", ".remove-train", function(){
      dataRef.child(getKey).remove();
 });
 
-}); // Closes jQuery wrapper
+}); 
